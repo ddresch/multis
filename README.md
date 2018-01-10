@@ -1,3 +1,5 @@
+![Multis Logo](./app/icon/app-icon.png)
+
 # Multis Browser
 This app helps to display websites or HTML content in general on multiple displays connected to your machine.
 
