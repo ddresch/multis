@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/photon.min.css">
+    <link rel="stylesheet" href="css/dragging.css">
+    <link rel="stylesheet" href="css/welcome.css">
+  </head>
+  <body>
+    <div class="window">
+      <header class="toolbar toolbar-header">
+        <h1 class="title">Welcome</h1>
+      </header>
+      <div class="window-content">
+        <div class="padded-more" style="width: 100%;">
+          <div style="width: 50%; float: left;">
+            <div class="multis-logo"></div>
+            <p><strong>Multis</strong> - your multi monitor kiosk</p>
+            <i>Version <span id="multisVersion"></span></i>
+          </div>
+          <div style="width: 50%; float: left; background-color: rgba(0,0,0,0.6); padding: 10px; border-radius: 5px;">
+            There are no URLs in your configuration.<br/>
+            Want to setup your configuration now?<br/><br/>
+            <button id="openPreferencesBtn" class="btn btn-default btn-large">
+              Preferences
+            </button><br/><br/>
+            Add at least one URL and <strong>Multis</strong> will open it directly when it's getting started.
+          </div>
+        </div>
+      </div>
+      <footer class="toolbar toolbar-footer">
+        <div class="toolbar-actions">
+          <button id="closeWndBtn" class="btn btn-primary pull-right">
+            OK
+          </button>
+        </div>
+      </footer>
+    </div>
+
+    <script>
+      require('./welcome.js')
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{
+  "name": "multis-browser",
+  "productName": "Multis",
+  "version": "0.0.1",
+  "description": "A multi display browser experience.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build-mac": "rm -rf distribution/Multis-darwin-x64/ && electron-packager ./ --out=./distribution/ --icon=app/icon/app-icon.icns --platform=darwin"
+  },
+  "repository": "https://github.com/ddresch/multis",
+  "keywords": [
+    "browser",
+    "display",
+    "multi",
+    "fullscreen",
+    "mqtt"
+  ],
+  "author": "Dirk Dresch",
+  "license": "MIT",
+  "devDependencies": {
+    "devtron": "^1.4.0",
+    "electron": "~1.7.8",
+    "electron-debug": "^1.4.0"
+  },
+  "dependencies": {
+    "electron-is-dev": "^0.3.0",
+    "electron-settings": "^3.1.4",
+    "mqtt": "^2.15.0"
+  }
+}

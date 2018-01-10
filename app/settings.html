@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Preferences</title>
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/photon.min.css">
+    <link rel="stylesheet" href="components/tabs-custom.css">
+    <link rel="stylesheet" href="css/dragging.css">
+    <link rel="stylesheet" href="css/settings.css">
+  </head>
+  <body>
+    <div class="window">
+      <header class="toolbar toolbar-header">
+        <h1 class="title">Preferences</h1>
+      </header>
+      <div class="tab-group" id="tab-group">
+        <div id="general" class="tab-item active">General</div>
+        <div id="mqtt" class="tab-item">MQTT</div>
+        <div id="windows" class="tab-item">URLs</div>
+      </div>
+      <div class="window-content">
+        <div class="padded-more" style="width: 100%;">
+          <div class="tab-content general">
+            <p>Connected Monitor(s): <span id="mCnt"></span></p>
+            <div class="form-group">
+              <label>On load error try window reload after x seconds:</label>
+              <input type="number" id="reloadTimeout" placeholder="in seconds or empty for no reload" class="form-control" />
+            </div>
+          </div>
+          <div class="tab-content mqtt" style="display: none;">
+            <p>Use MQTT protocol to interact with Multis.</p>
+            <div class="form-group">
+              <label>
+                <input id="mqttEnabled" type="checkbox"> Enabled
+              </label>
+            </div>
+            <div class="form-group">
+              <label>Server</label>
+              <input type="url" id="mqttServer" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label>Namespace</label>
+              <input type="text" id="mqttNamespace" class="form-control" />
+            </div>
+            <div class="form-group">
+              <p>
+                <strong>Reload</strong><br />
+                Reload specific or all windows.<br/>
+                Topic: [custom-namespace]/reload<br/>
+                Payload: [0-n]
+              </p>
+              <p>
+                <strong>Open Dev. Tools</strong><br />
+                Open developer tools of all windows.<br/>
+                Topic: [custom-namespace]/open-dev-tools<br/>
+                Payload: empty
+              </p>
+            </div>
+            <div class="form-group">
+              <p>Connection Status: <span id="connStatus" class="badge"></span></p>
+            </div>
+          </div>
+          <div class="tab-content windows" style="display: none;">
+            <div class="">
+              <input class="form-control url-add" type="url" id="urlAddValue" placeholder="URL" />
+              <input type="button" id="urlAdd" value="+" class="btn btn-primary btn-large btn-form-right" />
+            </div>
+            <ol id="urlList" class="list-group"></ol>
+          </div>
+      </div>
+    </div>
+
+    <footer class="toolbar toolbar-footer">
+      <div class="toolbar-actions">
+        <button id="saveSettingsBtn" class="btn btn-primary pull-right">
+          Save
+        </button>
+        <button id="closeSettingsBtn" class="btn btn-default pull-right">
+          Close
+        </button>
+      </div>
+    </footer>
+
+    <script>
+      require('./settings.js')
+      require('./components/tabs.js')
+    </script>
+  </body>
+</html>

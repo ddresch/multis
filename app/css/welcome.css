@@ -1,0 +1,17 @@
+body {
+  background: url('./welcome-bg.jpg');
+  background-size: cover;
+  color: white;
+}
+
+.window {
+  background-color: transparent;
+}
+
+.multis-logo {
+  background: url('../icon/app-icon.png');
+  background-size: contain;
+  width: 100px;
+  height: 100px;
+  box-shadow: 0 0 20px black;
+}
