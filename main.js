@@ -199,32 +199,6 @@ function createWindows() {
     if(displays[wndId] && config.windows[wndId]) {
       createWindow(wndId, displays[wndId])
     }
-    // if(config.windows[i]) {
-    //   const wndId = i
-    //   // Create the browser windows
-    //   const dsp = displays[wndId]
-    //   windows[wndId] = new BrowserWindow({
-    //     x: dsp.bounds.x,
-    //     y: dsp.bounds.y,
-    //     width: dsp.size.width,
-    //     height: dsp.size.height,
-    //     frame: false,
-    //   })
-    //   const wnd = windows[wndId]
-    //   wnd.loadURL(config.windows[wndId].url)
-    //   // add window events
-    //   wnd.on('closed', () => windows[wndId] = null)
-    //   wnd.webContents.on('did-fail-load', function(e) {
-    //     const timeout = (config.reloadTimeout) ? parseInt(config.reloadTimeout) * 1000 : false
-    //     console.log('Start reload in ' + timeout + ' milliseconds.')
-    //     if(windows[wndId] && timeout) {
-    //       setTimeout(() => {
-    //         console.log('Reload Window with ID: ' + wndId)
-    //         wnd.reload()
-    //       }, timeout)
-    //     }
-    //   })
-    // }
   }
 }
 
