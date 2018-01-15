@@ -19,64 +19,73 @@ window.addEventListener('load', () => {
   }, false)
   // current state of settings
   c = settings.getAll()
+  console.log('Loaded settings: ', c)
+  // init all tab contents
+  initGeneralTab()
+  initMqttTab()
+  refreshUrlList()
 }, false)
 
 //
 // General
 //
-// monitor count
-const displays = electron.screen.getAllDisplays()
-const mCnt = displays.length
-document.getElementById('mCnt').textContent = mCnt
-// reloadTimeout
-const reloadTimeout = document.getElementById('reloadTimeout')
-reloadTimeout.value = c.reloadTimeout
-reloadTimeout.oninput = () => {
-  settings.set('reloadTimeout', reloadTimeout.value)
+function initGeneralTab() {
+  // monitor count
+  const displays = electron.screen.getAllDisplays()
+  const mCnt = displays.length
+  document.getElementById('mCnt').textContent = mCnt
+  // reloadTimeout
+  const reloadTimeout = document.getElementById('reloadTimeout')
+  reloadTimeout.value = c.reloadTimeout
+  reloadTimeout.oninput = () => {
+    c.reloadTimeout = reloadTimeout.value
+  }
 }
 
 //
 // MQTT
 //
-const mqttEnabled = document.getElementById('mqttEnabled')
+function initMqttTab() {
+  const mqttEnabled = document.getElementById('mqttEnabled')
 
-const checkReconnect = () => {
-  if(mqttEnabled.checked) ipcRenderer.send('mqtt-reconnect')
-}
+  const checkReconnect = () => {
+    if(mqttEnabled.checked) ipcRenderer.send('mqtt-reconnect')
+  }
 
-mqttEnabled.checked = c.mqtt.enabled
-mqttEnabled.onclick = () => {
-  settings.set('mqtt.enabled', mqttEnabled.checked)
-  checkReconnect()
-}
-const mqttServer = document.getElementById('mqttServer')
-mqttServer.value = c.mqtt.url
-mqttServer.oninput = () => {
-  settings.set('mqtt.url', mqttServer.value)
-  checkReconnect()
-}
-const mqttNamespace = document.getElementById('mqttNamespace')
-mqttNamespace.value = c.mqtt.ns
-mqttNamespace.oninput = () => {
-  settings.set('mqtt.ns', mqttNamespace.value)
-  checkReconnect()
-}
-ipcRenderer.on('mqtt-status', (event, arg) => {
-  console.log('mqtt-status', arg)
-  const badge = document.getElementById('connStatus')
-  badge.textContent = (arg) ? 'connected' : 'disconnected'
-  badge.classList.remove('active')
-  if(arg) badge.classList.add('active')
-})
+  mqttEnabled.checked = c.mqtt.enabled
+  mqttEnabled.onclick = () => {
+    c.mqtt.enabled = mqttEnabled.checked
+    checkReconnect()
+  }
+  const mqttServer = document.getElementById('mqttServer')
+  mqttServer.value = c.mqtt.url
+  mqttServer.oninput = () => {
+    c.mqtt.url = mqttServer.value
+    checkReconnect()
+  }
+  const mqttNamespace = document.getElementById('mqttNamespace')
+  mqttNamespace.value = c.mqtt.ns
+  mqttNamespace.oninput = () => {
+    c.mqtt.ns = mqttNamespace.value
+    checkReconnect()
+  }
+  ipcRenderer.on('mqtt-status', (event, arg) => {
+    console.log('mqtt-status', arg)
+    const badge = document.getElementById('connStatus')
+    badge.textContent = (arg) ? 'connected' : 'disconnected'
+    badge.classList.remove('active')
+    if(arg) badge.classList.add('active')
+  })
 
-const checkMqttStatusLoop = setInterval(() => {
-  ipcRenderer.send('get-mqtt-status')
-}, 5000)
+  const checkMqttStatusLoop = setInterval(() => {
+    ipcRenderer.send('get-mqtt-status')
+  }, 5000)
+}
 
 //
 // URLs
 //
-const refreshUrlList = () => {
+function refreshUrlList() {
   const list = document.getElementById('urlList')
   while(list.firstChild) {
     list.removeChild(list.firstChild)
@@ -106,7 +115,6 @@ const refreshUrlList = () => {
         parseInt(evt.currentTarget.getAttribute('data-window-id')),
         1
       )
-      settings.setAll(c)
       refreshUrlList()
     }
     const icnReload = document.createElement('span')
@@ -134,7 +142,6 @@ const refreshUrlList = () => {
     list.appendChild(li)
   }
 }
-refreshUrlList()
 
 //
 // button handlers
@@ -146,18 +153,16 @@ urlAdd.onclick = () => {
   c.windows.push({
     url: urlValue.value
   })
-  settings.setAll(c)
   urlValue.value = ''
   refreshUrlList()
 }
 
 const saveBtn = document.querySelector('#saveSettingsBtn')
 saveBtn.addEventListener('click', function (e) {
-
-  ipcRenderer.sendSync('close-settings-window')
+  ipcRenderer.send('save-and-close-settings-window', c)
 });
 
 const closeBtn = document.querySelector('#closeSettingsBtn')
 closeBtn.addEventListener('click', function (e) {
-  ipcRenderer.sendSync('close-settings-window')
+  ipcRenderer.send('close-settings-window')
 });

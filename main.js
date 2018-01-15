@@ -153,11 +153,41 @@ function mqttConnect(cfg) {
 }
 
 function mqttReconnect() {
-  mc.end(() => {
-    console.log('MQTT server connection closed, trying to reconnect.')
-    loadConfiguration()
-    mqttConnect(config.mqtt)
+  if(mc) {
+    mc.end(() => {
+      console.log('MQTT server connection closed, trying to reconnect.')
+      loadConfiguration()
+      mqttConnect(config.mqtt)
+    })
+  }
+}
+
+function createWindow(wndId, dsp) {
+  // Create the browser window for dsp
+  windows[wndId] = new BrowserWindow({
+    x: dsp.bounds.x,
+    y: dsp.bounds.y,
+    width: dsp.size.width,
+    height: dsp.size.height,
+    frame: false,
   })
+  const wnd = windows[wndId]
+  wnd.loadURL(config.windows[wndId].url)
+  // add window events
+  wnd.on('closed', () => windows[wndId] = null)
+  wnd.webContents.on('did-fail-load', function(e) {
+    const timeout = (config.reloadTimeout) ? parseInt(config.reloadTimeout) * 1000 : false
+    console.log('Start reload in ' + timeout + ' milliseconds.')
+    if(windows[wndId] && timeout) {
+      setTimeout(() => {
+        console.log('Reload Window with ID: ' + wndId)
+        wnd.reload()
+      }, timeout)
+    }
+  })
+  // switch to fullscreen
+  // TODO add to monitor settings
+  wnd.setFullScreen(true)
 }
 
 function createWindows() {
@@ -165,32 +195,36 @@ function createWindows() {
   windows = []
 
   for (var i = 0; i < displays.length; i++) {
-    if(config.windows[i]) {
-      const wndId = i
-      // Create the browser windows
-      const dsp = displays[wndId]
-      windows[wndId] = new BrowserWindow({
-        x: dsp.bounds.x,
-        y: dsp.bounds.y,
-        width: dsp.size.width,
-        height: dsp.size.height,
-        frame: false,
-      })
-      const wnd = windows[wndId]
-      wnd.loadURL(config.windows[wndId].url)
-      // add window events
-      wnd.on('closed', () => windows[wndId] = null)
-      wnd.webContents.on('did-fail-load', function(e) {
-        const timeout = (config.reloadTimeout) ? parseInt(config.reloadTimeout) * 1000 : false
-        console.log('Start reload in ' + timeout + ' milliseconds.')
-        if(windows[wndId] && timeout) {
-          setTimeout(() => {
-            console.log('Reload Window with ID: ' + wndId)
-            wnd.reload()
-          }, timeout)
-        }
-      })
+    const wndId = i
+    if(displays[wndId] && config.windows[wndId]) {
+      createWindow(wndId, displays[wndId])
     }
+    // if(config.windows[i]) {
+    //   const wndId = i
+    //   // Create the browser windows
+    //   const dsp = displays[wndId]
+    //   windows[wndId] = new BrowserWindow({
+    //     x: dsp.bounds.x,
+    //     y: dsp.bounds.y,
+    //     width: dsp.size.width,
+    //     height: dsp.size.height,
+    //     frame: false,
+    //   })
+    //   const wnd = windows[wndId]
+    //   wnd.loadURL(config.windows[wndId].url)
+    //   // add window events
+    //   wnd.on('closed', () => windows[wndId] = null)
+    //   wnd.webContents.on('did-fail-load', function(e) {
+    //     const timeout = (config.reloadTimeout) ? parseInt(config.reloadTimeout) * 1000 : false
+    //     console.log('Start reload in ' + timeout + ' milliseconds.')
+    //     if(windows[wndId] && timeout) {
+    //       setTimeout(() => {
+    //         console.log('Reload Window with ID: ' + wndId)
+    //         wnd.reload()
+    //       }, timeout)
+    //     }
+    //   })
+    // }
   }
 }
 
@@ -214,6 +248,14 @@ ipcMain.on('close-settings-window', function () {
   }
 })
 
+ipcMain.on('save-and-close-settings-window', function (evt, c) {
+  if (settingsWin) {
+    settings.setAll(c)
+    config = settings.getAll()
+    settingsWin.close()
+  }
+})
+
 ipcMain.on('open-settings-window', function () {
   if(settingsWin) return
   openSettings()
@@ -226,7 +268,6 @@ ipcMain.on('close-welcome-window', function () {
 })
 
 ipcMain.on('get-mqtt-status', (event, arg) => {
-  console.log('get-mqtt-status', arg)
   event.sender.send('mqtt-status', mqttConnected)
 })
 
@@ -236,10 +277,14 @@ ipcMain.on('mqtt-reconnect', () => {
 })
 
 ipcMain.on('reload-window-by-id', function (evt, id) {
-  console.log('reload-window-by-id')
   const wndId = parseInt(id)
+  console.log('reload-window-by-id', wndId)
   if (windows[wndId]) {
-    // windows[wndId].reload()
     windows[wndId].loadURL(config.windows[wndId].url)
+  }else{
+    let displays = electron.screen.getAllDisplays()
+    if(displays[wndId] && config.windows[wndId]) {
+      createWindow(wndId, displays[wndId])
+    }
   }
 })
