@@ -1,6 +1,7 @@
 ![Multis Logo](./app/icon/app-icon.png)
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fddresch%2Fmultis.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fddresch%2Fmultis?ref=badge_shield)
+[![license](http://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/ddresch/multis/blob/master/LICENSE)
 
 # Multis Browser
 This app helps to display websites or HTML content in general on multiple displays connected to your machine.
