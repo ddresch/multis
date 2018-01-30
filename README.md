@@ -7,19 +7,18 @@
 # Multis Browser
 This app helps to display websites or HTML content in general on multiple displays connected to your machine.
 
-You setup the list of URLs you want to display and each display will open a single window instance with a URL assigned.
+Setup the list of URLs to show each attached display/monitor will open a single fullscreen window instance with a URL assigned.
 
 *Features*
 - Manage multiple monitor setups on one machine
 - Connect with MQTT(http://www.mqtt.org) server to remotely manage your kiosk
 
-Recommended community standards
+## Future Ideas
+Growing list of ideas, other packages to integrate etc.
 
-## Code of conduct
-
-## Contributing
-
-https://github.com/sindresorhus/electron-timber
+- [Pretty logger](https://github.com/sindresorhus/electron-timber) for development
+- List of URLs sortable
+- More options per URL or monitor
 
 ## Get Started
 
