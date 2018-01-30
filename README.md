@@ -5,7 +5,7 @@
 [![Build Status](https://travis-ci.org/ddresch/multis.svg?branch=master)](https://travis-ci.org/ddresch/multis)
 
 # Multis Browser
-This app helps to display websites or HTML content in general on multiple displays connected to your machine.
+This app helps to display websites or HTML content in general on multiple displays connected to your machine. 
 
 Setup the list of URLs to show each attached display/monitor will open a single fullscreen window instance with a URL assigned.
 
