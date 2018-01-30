@@ -13,6 +13,28 @@ You setup the list of URLs you want to display and each display will open a sing
 - Manage multiple monitor setups on one machine
 - Connect with MQTT(http://www.mqtt.org) server to remotely manage your kiosk
 
+Recommended community standards
+
+## Code of conduct
+
+## Contributing
+
+https://github.com/sindresorhus/electron-timber
+
+## Get Started
+
+Run Multis on your local machine.
+```
+npm install
+npm start
+```
+
+Build for deployment (currently MAC only)
+```
+npm run build-mac
+```
 
 ## License
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fddresch%2Fmultis.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fddresch%2Fmultis?ref=badge_large)
+
+## Issue or pull request template

@@ -4,6 +4,7 @@ node_js:
 matrix:
   include:
   - os: osx
+    osx_image: xcode9.0
 cache:
   npm: true
 notifications:
