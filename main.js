@@ -81,8 +81,9 @@ function openSettings() {
   settingsWin = new BrowserWindow({
       frame: false,
       height: 600,
-      resizable: true,
+      resizable: false,
       width: 500,
+      fullscreen: false,
   })
   settingsWin.loadURL('file://' + __dirname + '/app/settings.html')
   settingsWin.on('closed', function () { settingsWin = null })
