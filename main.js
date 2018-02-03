@@ -44,7 +44,7 @@ function initApp() {
 
 function initDisplayHandling() {
   electron.screen.on('display-added', (evt, disp) => {
-    console.log(disp)
+    createWindow(windows.length, disp)
   })
 }
 
@@ -133,20 +133,20 @@ function mqttConnect(cfg) {
     // check action keyword
     switch (action) {
       case 'reload':
-        if(winNum > 0) {
+        if(winNum >= 0) {
           console.log('Reload browser window ' + winNum + '.')
-          windows[winNum].reload()
+          if(windows[winNum]) windows[winNum].reload()
         } else {
           console.log('Reload all browser windows.')
           for (var i = 0; i < windows.length; i++) {
-            windows[i].reload()
+            if(windows[i]) windows[i].reload()
           }
         }
         break
       case 'open-dev-tools':
         console.log('Open all developer tool windows.')
         for (var i = 0; i < windows.length; i++) {
-          windows[i].webContents.openDevTools()
+          if(windows[i]) windows[i].webContents.openDevTools()
         }
         break
     }
