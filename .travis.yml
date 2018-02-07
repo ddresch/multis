@@ -13,6 +13,7 @@ script:
 - npm run build-mac
 deploy:
   provider: releases
+  skip_cleanup: true
   api_key:
     secure: iRcyFAW/y8lGihKfIgbTcBFfkaPdoeCBTzXhfFDVyApDKuobQ/yzi4RHF73pc+PinThlDjXruPgydAeWZyphhIK3cbi7daMbXgUv9QCTU7EnnOe3/zNRf0AuiZZWH0+gt/AAO/ncSp/yizHLKUlP56kM9wjyLlSGn5PdghZkJzqvBt/GUNLKV47ijdXqytjGpVcxqUYG2jIJqDhWGvsQlhg1XZQ5fwFJZ0GP8mMhnS+9QY387f+9DnPAZWCMw6UGq5z0izARIzbmfVsRqiGDfgouvq+XjsnL2lY04BXlPUumlO4BgH0XVRShw+kR89FEDBdYzjg4VkYGWx/WaDY2zHN6txLeRnP4LQ5xxnxG5ev2bf4pL87OZbpE8P47rsIOxUax9ca00ngC5+cOWWSI3xd2Fg8cE7Z9VlS0BotT/ILx3PWzImF3fYclkT+UM5kGeKpXYcrYO4ZPwYY6Tmv4gMjatpjHUvCDK4cxP2pRCobc2QNgqe0eyxqBZU8jFAqTqtS8ah92YyEsi6cp3pDtce/0FXp0LV88khWzLWK7CKjdwnvucoEwA3nxqfy8blNo5bzH9awqv6vjyWgpjPzXcPtZQQvtlmfypX8T9isNMm+/NJ/glo9DJPYDZWPKR3m1R23fXiVxrkRpOq2+yif6w/JwaHVXyGq/Buq5o2xzDl4=
   file: /Users/travis/build/ddresch/multis/distribution/Multis.dmg
