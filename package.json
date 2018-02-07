@@ -1,8 +1,8 @@
 {
   "name": "multis-browser",
   "productName": "Multis",
-  "version": "0.0.3",
-  "description": "A multi display browser experience.",
+  "version": "0.0.4",
+  "description": "An Electron based multi display browser experience.",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
