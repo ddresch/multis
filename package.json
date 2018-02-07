@@ -8,7 +8,10 @@
     "start": "electron .",
     "build-mac-app": "rm -rf distribution/Multis-darwin-x64/ && electron-packager ./ --out=./distribution/ --icon=app/icon/app-icon.icns --asar --platform=darwin",
     "build-mac-dmg": "electron-installer-dmg ./distribution/Multis-darwin-x64/Multis.app Multis --out=distribution --overwrite --icon=app/icon/app-icon.icns",
-    "build-mac": "npm run build-mac-app && npm run build-mac-dmg"
+    "build-mac": "npm run build-mac-app && npm run build-mac-dmg",
+    "build-linux-app": "rm -rf distribution/Multis-linux-x64/ && electron-packager ./ --out=./distribution/ --icon=app/icon/app-icon.png --asar --platform linux --arch x64",
+    "build-linux-deb": "electron-installer-debian --src ./distribution/Multis-linux-x64 --dest ./distribution/ --arch x64",
+	"build-linux": "npm run build-linux-app && npm run build-linux-deb"
   },
   "repository": "https://github.com/ddresch/multis",
   "keywords": [
@@ -24,6 +27,7 @@
     "devtron": "^1.4.0",
     "electron": "~1.7.11",
     "electron-debug": "^1.4.0",
+    "electron-installer-debian": "^0.8.0",
     "electron-installer-dmg": "^0.2.1",
     "electron-packager": "^10.1.1"
   },
