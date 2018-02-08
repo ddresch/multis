@@ -96,6 +96,7 @@ function openWelcome() {
       height: 300,
       resizable: false,
       width: 600,
+      fullscreen: false,
   })
 
   welcomeWin.loadURL('file://' + __dirname + '/app/welcome.html')
