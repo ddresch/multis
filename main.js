@@ -150,6 +150,18 @@ function mqttConnect(cfg) {
           if(windows[i]) windows[i].webContents.openDevTools()
         }
         break
+      case 'toggle-dev-tools':
+        console.log('Open or close all developer tool windows.')
+        for (var i = 0; i < windows.length; i++) {
+          if(windows[i]) {
+            if(windows[i].webContents.isDevToolsOpened()) {
+              windows[i].webContents.closeDevTools()
+            }else{
+              windows[i].webContents.openDevTools()
+            }
+          }
+        }
+        break
     }
   })
 }
