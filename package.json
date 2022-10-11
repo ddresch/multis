@@ -29,7 +29,7 @@
     "electron-debug": "^1.4.0",
     "electron-installer-debian": "^0.8.0",
     "electron-installer-dmg": "^0.2.1",
-    "electron-packager": "^10.1.1"
+    "electron-packager": "^16.0.0"
   },
   "dependencies": {
     "electron-is-dev": "^0.3.0",
